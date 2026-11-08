@@ -84,3 +84,17 @@ Another session started a small trainer (2.6 GB) while our Hecate teacher step r
 The v8-in teacher step on pool render w047 used 16.9 GB at the wrapper's inference batch of 16. With another session's trainer at 5.8 GB, the card reached 24 GB. Our step was stopped, and the other job was left running. Both pool v8-in maps (w047, w048) are now made by `code/v8in_small.py` at batch size 4, with a 20 GB VRAM cap. It uses the same 24 layers and the same `predict.py` and checkpoint as `v8in_on_render.py`. Tiles are predicted independently in eval mode and averaged on the CPU, so the batch size does not change what is computed. The render66 evaluation maps are unchanged. New hash:
 
 8c765e1d0830f915139239157ef4366182b4179409c1878bbfc4b115c230e6a6 *code/v8in_small.py
+
+## Amendment 4 (8 Nov 2026, 15:05, after 40 steps of student t1_s0 and before any student finished)
+
+At 15:00 our trainer (9.2 GB) and another session's trainer (13.6 GB) brought the card to 23.9 GB, and the other job began spilling into shared memory. The job's `vram_watch.py` never ran: Git Bash's `$!` is an MSYS pid, not a Windows pid, so it exited at once. We killed our trainer by hand. It resumes from `state.pt`, so the run's step count and schedule are unchanged.
+
+Two changes:
+- `gpu_guard.py` again waits until no foreign trainer runs, as well as VRAM < 4 GB. Both must hold on two polls in a row, because the other session starts its next run within about 20 s. This reverts the relaxation in Amendment 2, which proved unsafe for training: the other job grows from 3.6 GB to 13.6 GB.
+- `vram_watch_win.py` (with `gpu_guard_fn.py`) runs beside the job. It finds our trainer by its command line and kills it if a foreign trainer runs and VRAM passes 21 GB.
+
+Nothing computed changes. New hashes:
+
+037f361d4f5bc53a71d928f8dca2d4a4234a9490e7ade81a22ec3f1c5c149949 *code/gpu_guard.py
+0caaff4204f6cf2092e51999d6f16520cbc45d3d24d013fa6e775c7146a2458c *code/vram_watch_win.py
+b2c7b78a3f9ed4658b8158ba11fb5cc7237ae7d7877469f2d8ed7a2da7607ec5 *code/gpu_guard_fn.py

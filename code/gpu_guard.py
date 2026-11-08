@@ -27,9 +27,11 @@ def state():
             if p.info['pid'] != me and 'python' in (p.info['name'] or '').lower() and is_foreign_trainer(p.info['cmdline']): foreign.append(p.info['pid'])
         except Exception: pass
     return used, foreign
+quiet = 0
 while True:
     used, foreign = state()
-    if used < a.max_mib: break                     # a small foreign job (< max-mib in all) may share; vram_watch.py guards the rest
-    if not said: print(f'gpu_guard: waiting (VRAM {used} MiB, foreign train.py {foreign})', flush=True); said = True
+    quiet = quiet + 1 if (used < a.max_mib and not foreign) else 0
+    if quiet >= 2: break                           # Amendment 4: free and no foreign trainer on two polls in a row (other sessions chain runs within ~20 s)
+    if quiet == 0 and not said: print(f'gpu_guard: waiting (VRAM {used} MiB, foreign train.py {foreign})', flush=True); said = True
     time.sleep(a.poll)
 print(f'gpu_guard: free after {time.time() - t0:.0f} s (VRAM {used} MiB, foreign trainers {foreign})', flush=True)
