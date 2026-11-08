@@ -78,3 +78,9 @@ c3aad20ccbd532bc4c01b06cc030a5fb1340b56ba32611faf2ae27589dfb3d4c *code/gpu_guard
 Another session started a small trainer (2.6 GB) while our Hecate teacher step ran. `gpu_guard.py` now waits only for dedicated VRAM under 4 GB, which allows a small foreign job beside ours, as the owner's GPU rule does. It no longer waits for every foreign trainer to finish. `vram_watch.py` is unchanged: it stops our trainer if a foreign trainer runs and VRAM passes 22.5 GB. Nothing computed changes. New hash:
 
 384cee535ad2db94972439031bcb62665c4c9fe35c8efa87d268a32bc0e2b27e *code/gpu_guard.py
+
+## Amendment 3 (8 Nov 2026, 13:45, before any student was trained)
+
+The v8-in teacher step on pool render w047 used 16.9 GB at the wrapper's inference batch of 16. With another session's trainer at 5.8 GB, the card reached 24 GB. Our step was stopped, and the other job was left running. Both pool v8-in maps (w047, w048) are now made by `code/v8in_small.py` at batch size 4, with a 20 GB VRAM cap. It uses the same 24 layers and the same `predict.py` and checkpoint as `v8in_on_render.py`. Tiles are predicted independently in eval mode and averaged on the CPU, so the batch size does not change what is computed. The render66 evaluation maps are unchanged. New hash:
+
+8c765e1d0830f915139239157ef4366182b4179409c1878bbfc4b115c230e6a6 *code/v8in_small.py
