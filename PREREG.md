@@ -65,3 +65,10 @@ All numbers are reported whatever the verdict, including the per-seed AUCs.
 ## Later targets
 
 T0 (PHerc. 0306B), T2 (PHerc. 0841) and T3 (PHerc. 1447) are added by amendment, each before its own student runs, with its own data, exclusion and comparator. The overall claim across targets is fixed in that amendment. No cross-target claim will be made from T1 alone.
+
+## Amendment 1 (8 Nov 2026, before any student was trained)
+
+`code/gpu_guard.py` and `code/vram_watch.py` detected another session's trainer only by the file name `train.py`. The trainer running on this machine at 13:01 is `train_arch.py`. Both now treat any `*train*.py` script, except our own `train_cloud_hn.py`, as foreign. These two scripts only decide when a GPU step may start, or stop our trainer to avoid a shared-GPU freeze (it resumes from its saved state). They change nothing that is computed. New hashes:
+
+c3aad20ccbd532bc4c01b06cc030a5fb1340b56ba32611faf2ae27589dfb3d4c *code/gpu_guard.py
+8a96c719968ebe7c688c2e2b50d4ffac5efee11c62482ac61936150037ba07ab *code/vram_watch.py

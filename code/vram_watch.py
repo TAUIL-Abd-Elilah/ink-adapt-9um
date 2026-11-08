@@ -1,14 +1,25 @@
 """vram_watch.py <pid> [--limit-mib 22500] : while <pid> lives, kill it (and its children) if dedicated VRAM passes the limit while
-another session's train.py runs (two jobs would freeze each other, 7 Nov). The trainer resumes from its state.pt on restart."""
+another session's training script runs (two jobs would freeze each other, 7 Nov). The trainer resumes from its state.pt on restart."""
 import argparse, subprocess, sys, time
 import psutil
+
+
+def is_foreign_trainer(cmdline):
+    """Another session's training script: any *.py argument whose file name contains 'train', except our own trainer."""
+    import os
+    for arg in cmdline or []:
+        b = os.path.basename(arg.replace(chr(92), '/'))
+        if b.endswith('.py') and 'train' in b and b != 'train_cloud_hn.py':
+            return True
+    return False
+
 ap = argparse.ArgumentParser(); ap.add_argument('pid', type=int); ap.add_argument('--limit-mib', type=int, default=22500)
 a = ap.parse_args()
 while psutil.pid_exists(a.pid):
     try:
         used = int(subprocess.run(['nvidia-smi', '--query-gpu=memory.used', '--format=csv,noheader,nounits'], capture_output=True, text=True).stdout.split()[0])
         foreign = [p.pid for p in psutil.process_iter(['name', 'cmdline']) if 'python' in (p.info['name'] or '').lower()
-                   and 'train.py' in ' '.join(p.info['cmdline'] or []) and 'train_cloud_hn.py' not in ' '.join(p.info['cmdline'] or [])]
+                   and is_foreign_trainer(p.info['cmdline'])]
         if used > a.limit_mib and foreign:
             p = psutil.Process(a.pid); kids = p.children(recursive=True)
             for k in kids + [p]:
