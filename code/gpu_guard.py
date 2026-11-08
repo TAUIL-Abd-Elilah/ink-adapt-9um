@@ -16,6 +16,16 @@ def is_foreign_trainer(cmdline):
             return True
     return False
 
+def is_foreign_chain(p):
+    """Amendment 5: another session's chain shell (bash running scratch/queue*.sh from D:/Competition/wundernn), which starts its next
+    training run a few seconds after the last one ends. While it lives, the GPU is not free for a student."""
+    if 'bash' not in (p.info['name'] or '').lower(): return False
+    c = ' '.join(p.info['cmdline'] or []).replace(chr(92), '/')
+    if 'queue' not in c or '.sh' not in c: return False
+    try: cwd = p.cwd().replace(chr(92), '/').lower()
+    except Exception: return False
+    return cwd.startswith('d:/competition/wundernn')
+
 ap = argparse.ArgumentParser(); ap.add_argument('--max-mib', type=int, default=4000); ap.add_argument('--poll', type=int, default=60)
 a = ap.parse_args(); me = os.getpid(); t0 = time.time(); said = False
 def state():
@@ -25,6 +35,7 @@ def state():
         try:
             c = ' '.join(p.info['cmdline'] or [])
             if p.info['pid'] != me and 'python' in (p.info['name'] or '').lower() and is_foreign_trainer(p.info['cmdline']): foreign.append(p.info['pid'])
+            elif is_foreign_chain(p): foreign.append(f"chain {p.info['pid']}")
         except Exception: pass
     return used, foreign
 quiet = 0

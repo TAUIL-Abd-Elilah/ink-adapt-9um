@@ -98,3 +98,9 @@ Nothing computed changes. New hashes:
 037f361d4f5bc53a71d928f8dca2d4a4234a9490e7ade81a22ec3f1c5c149949 *code/gpu_guard.py
 0caaff4204f6cf2092e51999d6f16520cbc45d3d24d013fa6e775c7146a2458c *code/vram_watch_win.py
 b2c7b78a3f9ed4658b8158ba11fb5cc7237ae7d7877469f2d8ed7a2da7607ec5 *code/gpu_guard_fn.py
+
+## Amendment 5 (8 Nov 2026, 15:30, student t1_s0 at step 30 of 600, none finished)
+
+At 15:19 attempt 2 of t1_s0 also started in the gap between two chained runs of the other session. It was stopped by `vram_watch_win.py` at 24.0 GB. Nothing spilled to shared memory, and the run resumes from step 30. The other session runs its trainings from a chain shell (`bash scratch/queue*.sh` in D:/Competition/wundernn). The First Letters session suggested that `gpu_guard.py` also wait while such a shell is alive, and it now does. Nothing computed changes. New hash:
+
+1afe9b92e0d3ffa38d98095ab6d3f224899fb6e858c74827db3878d55a6991e4 *code/gpu_guard.py
