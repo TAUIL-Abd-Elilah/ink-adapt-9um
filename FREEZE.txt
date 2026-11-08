@@ -1,0 +1,36 @@
+FREEZE for PREREG.md (T1, PHerc. 0343). Written 2026-11-08 11:34 UTC, before any student model was trained.
+sha256 of every file the protocol uses. In-repo files:
+d670d1195e8f7fd839b888cccf114c89f8400121e6c58c77134e41db76beab1d  PREREG.md
+5ea658d88bcae9a7dffcb717dfc375adc1b83fcebacae98d85f9157e7077cb9d  configs/spec_baseline.json
+dbb2fc35d0bf4eea5d916492a3386acba7baec411038ab978b76446ef35dacab  configs/t1_decoy.json
+31d6bcfd5bd91872a3b899e93649b8bd79ae9c382eb9cd2ab51cee10b71952c6  configs/t1_s0.json
+b82223c75c7eb265e283db39b3c75d3b7369f85075d8b1d0d6eae583d2f7fcbd  configs/t1_s1.json
+d93c632a6cd576ef5478fded99cf8be715272db7343ba9fb9c9b0b3dad286592  configs/t1_s2.json
+211b6d1c6afe84161fb81d671e6398ced24fbdbf7f208efefe9c26517275fb56  code/build_anchor.py
+ac6ab78251a1487c75feb1378130aeeaa0d44620a06aeede002b81ce2930b801  code/build_labels.py
+efee91115d8aa3be605edf874736142616e3e5fa7aec7380a266d546f696fdab  code/common.py
+f0e12f305b63f631fac0f1ae897e5a3a8f954f09fef38585728f15ec92b656cb  code/eval_student.py
+1e03718f23343d89971addebc3d5cfca8d2028bc041880673e9a24be24d42ba1  code/excl_343.py
+9d03ae4d7916bb75302514a82a007bd177b5359c9378adb1920b265eb9e8134d  code/gpu_guard.py
+1be67ad1507d2d92295d62dcdd164cfd68d9f0b83d6e8fdb8a8a0db048ac05aa  code/prep_pool.py
+8e6296da035344f66fbf6550ff88739c173399b799a77425e6fb8c8e3ccda5a7  code/score_t1.py
+90b067c6bf61e2a973318164e2abdb4a1f668ee28099217bbebf33a5a94be708  code/vram_watch.py
+67355d5b91d432253194b509381581ea5a9ada7e64ed8e8eaa8ad6fd26dadc8d  code/e3_t1_gpu.sh
+c3475f2dc983cca732ba8aca9f3a798cda51828210c52647ef853116ae304d65  code/render_t1_pool.sh
+4c1978bdd363525fd02a47136615601ea6dff9c698976f78ef078231ac422bcf  code/t1_cpu_after_render.sh
+9b0b6b3ded2a50428bb861994d7a977cdb0f5c555466dbf5987df10f6f571754  code/ahn/train_cloud_hn.py
+7aee1b877bbf853063e9ca1a43061bb202682ec575c4bb641fd68a7777320bca  code/ahn/v8306lib.py
+
+External (author's tooling, not yet in this repo; to be added at release with the same hashes):
+839960a0ed0b8a275ad6b2d2483ebdb8a77d8b4b138fbb4da4ca95d73511876c *render_tifxyz.py
+90ea9856bfb42b4c4a7e04ef785dde79e09de9281711f62273f3e417eb8f4d15 *zfetch.py
+5b78a0f458831332c74c4786733db1b4837edc8569e173d59773861e7f6b9e55 *run_ink_render_fast.py
+62daa6233b1bcbe32cab522dd25e0f497b01f57b16311674c377d87b58977c69 *v8in_on_render.py
+
+Checkpoints:
+3b94548d7f9ba9f99bc4b0ad8cafcec6d42585c06304e1bd11e47b5d0f88c4cd *v8in/model.safetensors
+ea405417450abd8ace1b8ff79ebce3adb646c5e48ab95da46844d77efe984d8a *reader_v3/reader-v3.pth
+654ec5acec2b6c4788d9cb326e2f0b8c2c730584949a934ef775db7f6ab5d3a6 *reader_v2/reader-v2-step040000.pth
+809f4f10f7cb7afa19b4bee0f7d2ab31edd7e11b664f9f210cc9c17f22fcfe5d *hecate/hecate_9.6um.pth
+
+Data: Nieuwlaar meshes = github.com/Nieuwlaar/pherc343-first-letters outputs/ (w047 x.tif git blob e4f56e6b...); PHerc. 1447 = HF YoussefMoNader/ink-8um-pherc1447-surfaces w058, w060 (anchor tiles 1512 + 1206 = 2718, as the organisers' card).

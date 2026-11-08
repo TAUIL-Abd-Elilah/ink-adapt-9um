@@ -1,0 +1,37 @@
+{
+ "name": "t1_decoy",
+ "note": "E3 T1 PHerc0343: A-hn hn4_s0 recipe (Warner & Bodill), MIT teachers only, pool = Nieuwlaar w047/w048 outside the 2.9 mm letter zone, variant decoy, seed 0",
+ "init": "base",
+ "variant": "decoy",
+ "regions": [
+  "w047",
+  "w048"
+ ],
+ "anchor": [
+  "w058",
+  "w060"
+ ],
+ "training": {
+  "steps": 600,
+  "micro": 4,
+  "n1447": 2,
+  "accum": 4,
+  "w306": 0.5,
+  "lr": 2e-05,
+  "min_lr": 2e-06,
+  "warmup_frac": 0.05,
+  "weight_decay": 1e-06,
+  "seed": 0,
+  "vram_gb": 18.0,
+  "save_steps": [],
+  "workers": 4,
+  "grad_ckpt": "block"
+ },
+ "loss": {
+  "smooth": 0.25,
+  "hn": {
+   "gain_306": 4,
+   "gain_1447": 4
+  }
+ }
+}
