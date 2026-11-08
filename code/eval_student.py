@@ -10,7 +10,7 @@ ap.add_argument('--d', type=int, default=0); ap.add_argument('--stride', type=in
 ap.add_argument('--forward', action='store_true', help='depth-order control: feed layers in render order (not reversed)')
 a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
 g = zarr.open(a.render, mode='r'); arr = g['0']; N = arr.shape[0]; s = int(round((N - 1) / 2 + a.d - 11.5))
-name = os.path.basename(a.render.rstrip('/\')).replace('.zarr', '')
+name = os.path.basename(a.render.rstrip('/').rstrip(chr(92))).replace('.zarr', '')
 t = tempfile.mkdtemp(dir=a.out)
 for i in range(24): tifffile.imwrite(os.path.join(t, f'{i:02d}.tif'), np.asarray(arr[s + i]))
 maps = []

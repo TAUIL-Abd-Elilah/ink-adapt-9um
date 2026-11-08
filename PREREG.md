@@ -104,3 +104,14 @@ b2c7b78a3f9ed4658b8158ba11fb5cc7237ae7d7877469f2d8ed7a2da7607ec5 *code/gpu_guard
 At 15:19 attempt 2 of t1_s0 also started in the gap between two chained runs of the other session. It was stopped by `vram_watch_win.py` at 24.0 GB. Nothing spilled to shared memory, and the run resumes from step 30. The other session runs its trainings from a chain shell (`bash scratch/queue*.sh` in D:/Competition/wundernn). The First Letters session suggested that `gpu_guard.py` also wait while such a shell is alive, and it now does. Nothing computed changes. New hash:
 
 1afe9b92e0d3ffa38d98095ab6d3f224899fb6e858c74827db3878d55a6991e4 *code/gpu_guard.py
+
+## Amendment 6 (8 Nov 2026, 16:55, two students trained, no student evaluated)
+
+`code/eval_student.py` did not compile. It had the same backslash escaping slip as Amendment 1 (`rstrip('/\')` written as an unterminated string), so the job would have stopped at its evaluation step. Line 13 now reads `rstrip('/').rstrip(chr(92))`, and nothing else changed. All other scripts compile. A CPU smoke run on a 256 × 256 crop of render66 checks the path.
+
+`configs/spec_t1.json` is the scoring spec for the measures above. Its "student_plus_teach4" entry gives the student and teach4 equal weight: `E3T1` is listed four times beside the four teachers, because `score_t1.py` takes a plain mean of z maps. It is fixed before any student map exists.
+
+New hashes:
+
+e4878bdd97d20e5749b5c2f86ec8fd4138e4ca9c4287cdec0d4d96b7d4f790d7 *code/eval_student.py
+0af1d51dfa95c04f68139c4955f52475b1d7f02bf14bb4a249f6bb51f323c8ee *configs/spec_t1.json
