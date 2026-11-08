@@ -1,4 +1,6 @@
-"""gpu_guard.py [--max-mib 4000] [--poll 60] : block until the GPU is free enough to start a job, i.e. no other session's
+"""gpu_guard.py [--max-mib 4000] [--poll 60] : block until the GPU is free enough to start a job, i.e. dedicated VRAM in use is below --max-mib
+(the user's rule allows only a small job, <= 4 GB, beside ours; a foreign trainer is logged, and vram_watch.py stops ours if the
+total passes 22.5 GB). Formerly it also required that no other session's
 training script (*train*.py) is running and dedicated VRAM in use is below --max-mib (one GPU job at a time; never spill into shared memory).
 Prints one line when it starts waiting and one when it releases."""
 import argparse, os, subprocess, time
@@ -27,7 +29,7 @@ def state():
     return used, foreign
 while True:
     used, foreign = state()
-    if used < a.max_mib and not foreign: break
+    if used < a.max_mib: break                     # a small foreign job (< max-mib in all) may share; vram_watch.py guards the rest
     if not said: print(f'gpu_guard: waiting (VRAM {used} MiB, foreign train.py {foreign})', flush=True); said = True
     time.sleep(a.poll)
-print(f'gpu_guard: free after {time.time() - t0:.0f} s (VRAM {used} MiB)', flush=True)
+print(f'gpu_guard: free after {time.time() - t0:.0f} s (VRAM {used} MiB, foreign trainers {foreign})', flush=True)

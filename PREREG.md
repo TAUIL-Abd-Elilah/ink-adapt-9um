@@ -72,3 +72,9 @@ T0 (PHerc. 0306B), T2 (PHerc. 0841) and T3 (PHerc. 1447) are added by amendment,
 
 c3aad20ccbd532bc4c01b06cc030a5fb1340b56ba32611faf2ae27589dfb3d4c *code/gpu_guard.py
 8a96c719968ebe7c688c2e2b50d4ffac5efee11c62482ac61936150037ba07ab *code/vram_watch.py
+
+## Amendment 2 (8 Nov 2026, 13:35, before any student was trained)
+
+Another session started a small trainer (2.6 GB) while our Hecate teacher step ran. `gpu_guard.py` now waits only for dedicated VRAM under 4 GB, which allows a small foreign job beside ours, as the owner's GPU rule does. It no longer waits for every foreign trainer to finish. `vram_watch.py` is unchanged: it stops our trainer if a foreign trainer runs and VRAM passes 22.5 GB. Nothing computed changes. New hash:
+
+384cee535ad2db94972439031bcb62665c4c9fe35c8efa87d268a32bc0e2b27e *code/gpu_guard.py
