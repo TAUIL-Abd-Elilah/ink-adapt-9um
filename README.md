@@ -2,7 +2,7 @@
 
 Label-free adaptation of a 9 um ink model to a target scroll, with MIT-licensed teachers only, tested on held-out known text.
 
-**Status, 8 Nov 2026: pre-registered, first target running. No result yet.** `PREREG.md` states the question, the recipe, the measures and the verdict wording before any student model is trained. `FREEZE.txt` holds the hashes of everything it names.
+**Status, 8 Nov 2026: first target (PHerc. 0343) scored. Verdict: "no better than the ensemble".** See `results/T1_RESULT.md`. The student (mean of 3 seeds) scores AUC 0.765 against 0.769 for the four-teacher mean that made its labels (D1 = -0.004, 95 % CI -0.032 to +0.033). Both controls pass. As a fifth voter at equal weight, it lifts the ensemble to 0.796 (+0.027, CI +0.005 to +0.041); that is a pre-registered secondary measure on one scroll. `PREREG.md` (with its amendments) fixed the question, recipe, measures and verdict wording before any student was trained or scored. `FREEZE.txt` holds the original hashes, and each amendment lists the new ones.
 
 ## Idea
 
@@ -16,7 +16,7 @@ This repo runs the same recipe with MIT teachers only and no labels from the tar
 - **Adaptation pool:** his two released meshes, w047 and w048, minus a 3-D zone 2.9 mm around every letter (CT zeroed within 2.2 mm). That leaves about 4.0 cm2.
 - **Teachers:** v8-in, Reader v3, Reader v2 and Hecate 9.6 um.
 
-Baseline on the letters (`results/T1_BASELINE.md`, AUC of in-box against same-row pixels):
+Scores on the letters (`results/T1_BASELINE.md`, `results/T1_RESULT.md`; AUC of in-box against same-row pixels):
 
 | Model or ensemble | AUC |
 |---|---|
@@ -26,6 +26,8 @@ Baseline on the letters (`results/T1_BASELINE.md`, AUC of in-box against same-ro
 | v8-in | 0.686 |
 | Four-teacher mean (the bar) | 0.769 |
 | Hecate + Reader v3 | 0.780 |
+| **Student (this repo, 3 seeds)** | **0.765** |
+| **Student + four-teacher mean** | **0.796** |
 
 ## Layout
 

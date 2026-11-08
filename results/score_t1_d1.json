@@ -1,0 +1,102 @@
+{
+ "depth": "+1",
+ "n_letters": 18,
+ "n_boot": 1000,
+ "maps": {
+  "student": {
+   "auc": 0.7645,
+   "ci95": [
+    0.7444,
+    0.8224
+   ],
+   "models": [
+    "E3T1"
+   ]
+  },
+  "teach4": {
+   "auc": 0.7668,
+   "ci95": [
+    0.7442,
+    0.826
+   ],
+   "models": [
+    "v8inREV",
+    "reader_v3",
+    "reader_v2",
+    "hecate"
+   ]
+  },
+  "reader_v3": {
+   "auc": 0.7387,
+   "ci95": [
+    0.703,
+    0.8174
+   ],
+   "models": [
+    "reader_v3"
+   ]
+  },
+  "pair_hecate_rv3": {
+   "auc": 0.7744,
+   "ci95": [
+    0.7481,
+    0.8353
+   ],
+   "models": [
+    "hecate",
+    "reader_v3"
+   ]
+  },
+  "student_plus_teach4": {
+   "auc": 0.7954,
+   "ci95": [
+    0.7718,
+    0.8394
+   ],
+   "models": [
+    "E3T1",
+    "E3T1",
+    "E3T1",
+    "E3T1",
+    "v8inREV",
+    "reader_v3",
+    "reader_v2",
+    "hecate"
+   ]
+  }
+ },
+ "diffs": {
+  "student - teach4": {
+   "diff": -0.0024,
+   "ci95": [
+    -0.0353,
+    0.0317
+   ],
+   "p_le0": 0.446
+  },
+  "student - reader_v3": {
+   "diff": 0.0257,
+   "ci95": [
+    -0.0291,
+    0.073
+   ],
+   "p_le0": 0.172
+  },
+  "student - pair_hecate_rv3": {
+   "diff": -0.0099,
+   "ci95": [
+    -0.0497,
+    0.0311
+   ],
+   "p_le0": 0.606
+  },
+  "student_plus_teach4 - teach4": {
+   "diff": 0.0286,
+   "ci95": [
+    0.0045,
+    0.0416
+   ],
+   "p_le0": 0.01
+  }
+ }
+}
