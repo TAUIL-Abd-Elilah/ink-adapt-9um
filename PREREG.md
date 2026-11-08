@@ -115,3 +115,11 @@ New hashes:
 
 e4878bdd97d20e5749b5c2f86ec8fd4138e4ca9c4287cdec0d4d96b7d4f790d7 *code/eval_student.py
 0af1d51dfa95c04f68139c4955f52475b1d7f02bf14bb4a249f6bb51f323c8ee *configs/spec_t1.json
+
+## Amendment 7 (8 Nov 2026, 17:15, no student evaluated)
+
+The secondary measure "the same at d = +1" needs teach4 at d = +1. Render66 had Hecate, Reader v2 and Reader v3 maps at d+1 but no v8-in map there. `code/e3_t1_d1.sh` (queued after the T1 job) makes it with `v8in_small.py`, which now takes `--d` (default 0, so the d+0 maps are unchanged). It then copies the three other teacher maps at d+1 into `eval_maps`. The d+1 measures use `configs/spec_t1.json` with `--depth +1`. Decoy and per-seed maps exist only at d+0, so those entries are left out at d+1 (`configs/spec_t1_d1.json`). New hashes:
+
+5d15c9623de5fc940b14be97e7b64436f7b07d046b5f877f5a9734fdb6d3d46d *code/v8in_small.py
+7b2fd73ab36f3dc659d2493d05f1accd291cfa56635992bed9d868b5bb757b21 *code/e3_t1_d1.sh
+3d08aaad4ebf70a6809ea8ceed8ca41d094378efb9ee28d1b1a5beaf23d69d9f *configs/spec_t1_d1.json

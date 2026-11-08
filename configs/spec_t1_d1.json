@@ -1,0 +1,48 @@
+{
+ "maps": {
+  "student": [
+   "E3T1"
+  ],
+  "teach4": [
+   "v8inREV",
+   "reader_v3",
+   "reader_v2",
+   "hecate"
+  ],
+  "reader_v3": [
+   "reader_v3"
+  ],
+  "pair_hecate_rv3": [
+   "hecate",
+   "reader_v3"
+  ],
+  "student_plus_teach4": [
+   "E3T1",
+   "E3T1",
+   "E3T1",
+   "E3T1",
+   "v8inREV",
+   "reader_v3",
+   "reader_v2",
+   "hecate"
+  ]
+ },
+ "diffs": [
+  [
+   "student",
+   "teach4"
+  ],
+  [
+   "student",
+   "reader_v3"
+  ],
+  [
+   "student",
+   "pair_hecate_rv3"
+  ],
+  [
+   "student_plus_teach4",
+   "teach4"
+  ]
+ ]
+}
